@@ -6,6 +6,12 @@ class ExperimentStatus(models.Model):
     """
     status = models.CharField(max_length=15)
 
+    class Meta:
+        verbose_name_plural = 'Experiment statuses'
+
+    def __str__(self):
+        return self.status
+
 
 # class Category(models.Model):
 #     pass
@@ -34,3 +40,6 @@ class Experiment(models.Model):
 
     class Meta:
         ordering = ['created_at', 'updated_at', 'impact', 'confidence', 'ease']
+
+    def __str__(self):
+        return f'{self.code} {self.title}'
