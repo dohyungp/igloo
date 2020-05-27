@@ -7,6 +7,23 @@ ICE 리스트를 관리하고 조직 구성원에게 ICE의 결과를 빠르고 
 
 ## 사용법
 
-```
+1. 도커 컨테이너 실행
+```sh
 docker-compose up -d
+```
+2. 서버 개발
+```sh
+docker-compose exec server ./manage.py [makemigrations|migrate|shell|...]
+```
+3. 클라이언트 개발
+
+준비중
+
+4. 빌드
+
+준비중(아래와 같은 커맨드로 컨테이너 빌드할 수 있도록 구성 예정)
+
+```
+docker-compose -f docker-compose-build.yml build --no-cache
+docker-compose -f docker-compose-build.yml up
 ```
