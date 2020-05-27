@@ -12,6 +12,13 @@ services:
       - db:/var/lib/postgresql
 
   server:
+    environment:
+      - DJANGO_DB_NAME=postgres
+      - DJANGO_DB_USER=postgres
+      - DJANGO_DB_PASSWORD=postgres
+      - DJANGO_DB_HOST=postgres
+      - DJANGO_DB_PORT=5432
+      - DJANGO_DEBUG=True
     build:
       context: .
       dockerfile: ./docker/DockerFile.server
