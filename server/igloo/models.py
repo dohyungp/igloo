@@ -11,7 +11,7 @@ class ExperimentStatus(models.Model):
         verbose_name_plural = 'Experiment statuses'
 
     def __str__(self):
-        return self.status
+        return f'<Status: {self.status}>'
 
 
 # class Category(models.Model):
@@ -46,4 +46,4 @@ class Experiment(models.Model):
         ordering = ['created_at', 'updated_at', 'impact', 'confidence', 'ease']
 
     def __str__(self):
-        return f'{self.code} {self.title}'
+        return f'<Experiment: {self.code} {self.title}>'
