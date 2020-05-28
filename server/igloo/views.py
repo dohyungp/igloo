@@ -14,7 +14,8 @@ from igloo.serializers import ExperimentSerializer
 class ExperimentList(generics.ListCreateAPIView):
     queryset = Experiment.objects.all()
     serializer_class = ExperimentSerializer
-    filter_backends = [filters.OrderingFilter]
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter]
+    search_fields = ['code', 'title', 'status__status']
     ordering_fields = ['impact', 'confidence',
                        'ease', 'created_at', 'updated_at']
 
