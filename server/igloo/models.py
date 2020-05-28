@@ -24,7 +24,6 @@ class ExperimentStatus(models.Model):
 class Experiment(models.Model):
     """A/B Test Experiment idea
     """
-    objects = models.Manager()
     code = models.CharField(
         max_length=20, help_text='Enter Experiment code(e.g. EX123b)', unique=True)
     title = models.CharField(
