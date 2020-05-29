@@ -4,7 +4,11 @@ from igloo.models import Experiment
 
 
 class ExperimentFilter(FilterSet):
+    code = django_filters.CharFilter(
+        field_name='code', lookup_expr='icontains')
+    status_name = django_filters.CharFilter(
+        field_name='status__status', lookup_expr='icontains')
 
     class Meta:
         model = Experiment
-        fields = ['code', 'status']
+        fields = ['code', 'status', 'status_name']
