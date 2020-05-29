@@ -25,11 +25,6 @@ class ExperimentList(generics.ListCreateAPIView):
     ordering_fields = ['impact', 'confidence',
                        'ease', 'created_at', 'updated_at']
 
-    def list(self, request):
-        queryset = self.filter_queryset(self.get_queryset())
-        serializer = ExperimentSerializer(queryset, many=True)
-        return Response(serializer.data)
-
 
 class ExperimentDetail(APIView):
 
