@@ -6,7 +6,7 @@ from igloo.models import Experiment, ExperimentStatus
 class ExperimentStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExperimentStatus
-        fields = ['id', 'status']
+        fields = ['id', 'name']
 
 
 class ExperimentSerializer(serializers.ModelSerializer):
