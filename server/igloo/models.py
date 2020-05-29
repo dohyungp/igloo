@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class ExperimentStatus(models.Model):
@@ -10,7 +11,7 @@ class ExperimentStatus(models.Model):
         verbose_name_plural = 'Experiment statuses'
 
     def __str__(self):
-        return self.status
+        return str(self.status)
 
 
 # class Category(models.Model):
@@ -32,9 +33,12 @@ class Experiment(models.Model):
         max_length=1000, help_text='Enter Experiment short description', null=True)
     status = models.ForeignKey(
         ExperimentStatus, on_delete=models.SET_NULL, null=True)
-    impact = models.IntegerField(null=True)
-    confidence = models.IntegerField(null=True)
-    ease = models.IntegerField(null=True)
+    impact = models.IntegerField(null=True, validators=[
+        MinValueValidator(0), MaxValueValidator(10)])
+    confidence = models.IntegerField(
+        null=True, validators=[MinValueValidator(0), MaxValueValidator(10)])
+    ease = models.IntegerField(null=True, validators=[
+        MinValueValidator(0), MaxValueValidator(10)])
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
