@@ -11,7 +11,7 @@ class ExperimentStatus(models.Model):
         verbose_name_plural = 'Experiment statuses'
 
     def __str__(self):
-        return f'<Status: {self.status}>'
+        return str(self.status)
 
 
 # class Category(models.Model):
@@ -34,11 +34,11 @@ class Experiment(models.Model):
     status = models.ForeignKey(
         ExperimentStatus, on_delete=models.SET_NULL, null=True)
     impact = models.IntegerField(null=True, validators=[
-                                 MinValueValidator(0), MaxValueValidator(10)])
+        MinValueValidator(0), MaxValueValidator(10)])
     confidence = models.IntegerField(
         null=True, validators=[MinValueValidator(0), MaxValueValidator(10)])
     ease = models.IntegerField(null=True, validators=[
-                               MinValueValidator(0), MaxValueValidator(10)])
+        MinValueValidator(0), MaxValueValidator(10)])
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
@@ -46,4 +46,4 @@ class Experiment(models.Model):
         ordering = ['created_at', 'updated_at', 'impact', 'confidence', 'ease']
 
     def __str__(self):
-        return f'<Experiment: {self.code} {self.title}>'
+        return f'{self.code} {self.title}'
