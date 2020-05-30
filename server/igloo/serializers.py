@@ -3,10 +3,13 @@ from rest_framework import serializers
 from igloo.models import Experiment, ExperimentStatus
 
 
-class ExperimentStatusSerializer(serializers.ModelSerializer):
+class ExperimentStatusSerializer(serializers.HyperlinkedModelSerializer):
+    url = serializers.HyperlinkedIdentityField(
+        view_name='experimentstatus-detail')
+
     class Meta:
         model = ExperimentStatus
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'url']
 
 
 class ExperimentSerializer(serializers.HyperlinkedModelSerializer):
