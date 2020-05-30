@@ -6,6 +6,7 @@ class ExperimentStatus(models.Model):
     """Experiment Status List (e.g. Waiting, Preparing, Running, Stopped etc)
     """
     name = models.CharField(max_length=15)
+    description = models.TextField(max_length=250, null=True)
 
     class Meta:
         ordering = ['pk']
