@@ -8,6 +8,7 @@ class ExperimentStatus(models.Model):
     name = models.CharField(max_length=15)
 
     class Meta:
+        ordering = ['pk']
         verbose_name_plural = 'Experiment statuses'
 
     def __str__(self):
