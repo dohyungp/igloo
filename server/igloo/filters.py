@@ -11,7 +11,7 @@ class ExperimentFilter(FilterSet):
     status_name = django_filters.CharFilter(
         field_name='status__name', lookup_expr='icontains')
     is_prioritized = django_filters.BooleanFilter(
-        method='scored_ice_list_filter')
+        method='scored_ice_list_filter', label='Is prioritized')
 
     class Meta:
         model = Experiment
