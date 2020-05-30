@@ -31,7 +31,7 @@ class Experiment(models.Model):
     title = models.CharField(
         max_length=200, help_text='Enter Experiment full title(e.g. Full funnel test)')
     description = models.TextField(
-        max_length=1000, help_text='Enter Experiment short description', null=True)
+        max_length=2000, help_text='Enter Experiment short description', null=True)
     status = models.ForeignKey(
         ExperimentStatus, on_delete=models.SET_NULL, null=True)
     impact = models.IntegerField(null=True, validators=[
