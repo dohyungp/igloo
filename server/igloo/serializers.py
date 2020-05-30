@@ -15,11 +15,13 @@ class ExperimentStatusSerializer(serializers.HyperlinkedModelSerializer):
 class ExperimentSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(
         view_name='experiment-detail')
+    description = serializers.CharField(write_only=True, required=False, style={
+                                        'base_template': 'textarea.html'})
 
     class Meta:
         model = Experiment
         fields = ['id', 'code', 'title', 'status', 'url', 'impact',
-                  'confidence', 'ease', 'created_at', 'updated_at']
+                  'description', 'confidence', 'ease', 'created_at', 'updated_at']
 
     def to_representation(self, obj):
         if self.fields.get('status'):
