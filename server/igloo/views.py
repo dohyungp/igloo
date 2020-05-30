@@ -8,8 +8,8 @@ from rest_framework import filters
 
 from django_filters.rest_framework import DjangoFilterBackend
 
-from igloo.models import Experiment
-from igloo.serializers import ExperimentSerializer
+from igloo.models import Experiment, ExperimentStatus
+from igloo.serializers import ExperimentSerializer, ExperimentStatusSerializer, ExperimentDetailSerializer
 from igloo.filters import ExperimentFilter
 
 
@@ -28,4 +28,14 @@ class ExperimentList(generics.ListCreateAPIView):
 
 class ExperimentDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Experiment.objects.all()
-    serializer_class = ExperimentSerializer
+    serializer_class = ExperimentDetailSerializer
+
+
+class ExperimentStatusList(generics.ListCreateAPIView):
+    queryset = ExperimentStatus.objects.all()
+    serializer_class = ExperimentStatusSerializer
+
+
+class ExperimentStatusDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ExperimentStatus.objects.all()
+    serializer_class = ExperimentStatusSerializer
