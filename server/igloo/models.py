@@ -6,6 +6,7 @@ class ExperimentStatus(models.Model):
     """Experiment Status List (e.g. Waiting, Preparing, Running, Stopped etc)
     """
     name = models.CharField(max_length=15)
+    description = models.TextField(max_length=250, null=True)
 
     class Meta:
         ordering = ['pk']
@@ -31,7 +32,7 @@ class Experiment(models.Model):
     title = models.CharField(
         max_length=200, help_text='Enter Experiment full title(e.g. Full funnel test)')
     description = models.TextField(
-        max_length=1000, help_text='Enter Experiment short description', null=True)
+        max_length=2000, help_text='Enter Experiment short description', null=True)
     status = models.ForeignKey(
         ExperimentStatus, on_delete=models.SET_NULL, null=True)
     impact = models.IntegerField(null=True, validators=[
