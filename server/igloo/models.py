@@ -20,10 +20,6 @@ class ExperimentStatus(models.Model):
 #     pass
 
 
-# class Schedule(models.Model):
-#     pass
-
-
 class Experiment(models.Model):
     """A/B Test Experiment idea
     """
@@ -49,3 +45,15 @@ class Experiment(models.Model):
 
     def __str__(self):
         return f'{self.code} {self.title}'
+
+
+class ExperimentSchedule(models.Model):
+    experiment_id = models.ForeignKey(Experiment, on_delete=models.CASCADE)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField(null=True)
+
+    class Meta:
+        ordering = ['pk']
+
+    def __str__(self):
+        return f'Schedule of EXP{self.experiment_id}'
