@@ -56,4 +56,4 @@ class ExperimentSchedule(models.Model):
         ordering = ['pk']
 
     def __str__(self):
-        return f'Schedule of EXP{self.experiment_id}'
+        return f'Schedule of {self.experiment_id}'
