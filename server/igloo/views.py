@@ -39,3 +39,10 @@ class ExperimentStatusDetail(generics.RetrieveUpdateDestroyAPIView):
 class ExperimentScheduleList(generics.ListCreateAPIView):
     queryset = ExperimentSchedule.objects.all()
     serializer_class = ExperimentScheduleSerializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['start_date', 'end_date']
+
+
+class ExperimentScheduleDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ExperimentSchedule.objects.all()
+    serializer_class = ExperimentScheduleSerializer
