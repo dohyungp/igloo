@@ -40,7 +40,23 @@ class ExperimentDetailSerializer(serializers.ModelSerializer):
         return super().to_representation(obj)
 
 
-class ExperimentScheduleSerializer(serializers.ModelSerializer):
+class ExperimentTitleSerializer(serializers.HyperlinkedModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='experiment-detail')
+
+    class Meta:
+        model = Experiment
+        fields = ['id', 'code', 'title', 'url']
+
+
+class ExperimentScheduleSerializer(serializers.HyperlinkedModelSerializer):
+    url = serializers.HyperlinkedIdentityField(
+        view_name='experimentschedule-detail')
+
     class Meta:
         model = ExperimentSchedule
         fields = '__all__'
+
+    def to_representation(self, obj):
+        if self.fields.get('experiment'):
+            self.fields['experiment'] = ExperimentTitleSerializer()
+        return super().to_representation(obj)

@@ -11,7 +11,7 @@ urlpatterns = [
          name='experimentstatus-detail'),
     path('experiment_schedules/', views.ExperimentScheduleList.as_view()),
     path('experiment_schedules/<int:pk>/',
-         views.ExperimentScheduleDetail.as_view()),
+         views.ExperimentScheduleDetail.as_view(), name='experimentschedule-detail'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
