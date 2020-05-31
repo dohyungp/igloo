@@ -1,15 +1,10 @@
-from django.http import Http404
-
 from rest_framework import generics
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
 from rest_framework import filters
 
 from django_filters.rest_framework import DjangoFilterBackend
 
-from igloo.models import Experiment, ExperimentStatus
-from igloo.serializers import ExperimentSerializer, ExperimentStatusSerializer, ExperimentDetailSerializer
+from igloo.models import Experiment, ExperimentStatus, ExperimentSchedule
+from igloo.serializers import ExperimentSerializer, ExperimentStatusSerializer, ExperimentDetailSerializer, ExperimentScheduleSerializer
 from igloo.filters import ExperimentFilter
 
 
@@ -39,3 +34,15 @@ class ExperimentStatusList(generics.ListCreateAPIView):
 class ExperimentStatusDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ExperimentStatus.objects.all()
     serializer_class = ExperimentStatusSerializer
+
+
+class ExperimentScheduleList(generics.ListCreateAPIView):
+    queryset = ExperimentSchedule.objects.all()
+    serializer_class = ExperimentScheduleSerializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['start_date', 'end_date']
+
+
+class ExperimentScheduleDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ExperimentSchedule.objects.all()
+    serializer_class = ExperimentScheduleSerializer
