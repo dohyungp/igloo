@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError, EmptyResultSet
 from rest_framework import serializers
-from igloo.models import Experiment, ExperimentStatus
+from igloo.models import Experiment, ExperimentStatus, ExperimentSchedule
 
 
 class ExperimentStatusSerializer(serializers.HyperlinkedModelSerializer):
@@ -38,3 +38,9 @@ class ExperimentDetailSerializer(serializers.ModelSerializer):
         if self.fields.get('status'):
             self.fields['status'] = ExperimentStatusSerializer()
         return super().to_representation(obj)
+
+
+class ExperimentScheduleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExperimentSchedule
+        fields = '__all__'
