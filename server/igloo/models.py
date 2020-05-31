@@ -51,6 +51,8 @@ class ExperimentSchedule(models.Model):
     experiment = models.ForeignKey(Experiment, on_delete=models.CASCADE)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(null=True)
+    estimate_days = models.IntegerField(
+        help_text='Planned experiment duration(days)', default=0)
 
     class Meta:
         ordering = ['-pk', '-start_date', '-end_date']
