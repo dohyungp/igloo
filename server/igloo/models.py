@@ -48,12 +48,12 @@ class Experiment(models.Model):
 
 
 class ExperimentSchedule(models.Model):
-    experiment_id = models.ForeignKey(Experiment, on_delete=models.CASCADE)
+    experiment = models.ForeignKey(Experiment, on_delete=models.CASCADE)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(null=True)
 
     class Meta:
-        ordering = ['pk']
+        ordering = ['-pk', '-start_date', '-end_date']
 
     def __str__(self):
-        return f'Schedule of {self.experiment_id}'
+        return f'Schedule of {self.experiment}'
