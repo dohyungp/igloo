@@ -31,11 +31,11 @@ class Experiment(models.Model):
         max_length=2000, help_text='Enter Experiment short description', null=True)
     status = models.ForeignKey(
         ExperimentStatus, on_delete=models.SET_NULL, null=True)
-    impact = models.IntegerField(null=True, validators=[
+    impact = models.PositiveSmallIntegerField(null=True, validators=[
         MinValueValidator(0), MaxValueValidator(10)])
-    confidence = models.IntegerField(
+    confidence = models.PositiveSmallIntegerField(
         null=True, validators=[MinValueValidator(0), MaxValueValidator(10)])
-    ease = models.IntegerField(null=True, validators=[
+    ease = models.PositiveSmallIntegerField(null=True, validators=[
         MinValueValidator(0), MaxValueValidator(10)])
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
