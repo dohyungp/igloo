@@ -6,6 +6,7 @@ class ExperimentStatus(models.Model):
     """Experiment Status List (e.g. Waiting, Preparing, Running, Stopped etc)
     """
     name = models.CharField(max_length=15)
+    description = models.TextField(max_length=250, null=True)
 
     class Meta:
         ordering = ['pk']
@@ -19,10 +20,6 @@ class ExperimentStatus(models.Model):
 #     pass
 
 
-# class Schedule(models.Model):
-#     pass
-
-
 class Experiment(models.Model):
     """A/B Test Experiment idea
     """
@@ -31,14 +28,14 @@ class Experiment(models.Model):
     title = models.CharField(
         max_length=200, help_text='Enter Experiment full title(e.g. Full funnel test)')
     description = models.TextField(
-        max_length=1000, help_text='Enter Experiment short description', null=True)
+        max_length=2000, help_text='Enter Experiment short description', null=True)
     status = models.ForeignKey(
         ExperimentStatus, on_delete=models.SET_NULL, null=True)
-    impact = models.IntegerField(null=True, validators=[
+    impact = models.PositiveSmallIntegerField(null=True, validators=[
         MinValueValidator(0), MaxValueValidator(10)])
-    confidence = models.IntegerField(
+    confidence = models.PositiveSmallIntegerField(
         null=True, validators=[MinValueValidator(0), MaxValueValidator(10)])
-    ease = models.IntegerField(null=True, validators=[
+    ease = models.PositiveSmallIntegerField(null=True, validators=[
         MinValueValidator(0), MaxValueValidator(10)])
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
@@ -48,3 +45,17 @@ class Experiment(models.Model):
 
     def __str__(self):
         return f'{self.code} {self.title}'
+
+
+class ExperimentSchedule(models.Model):
+    experiment = models.ForeignKey(Experiment, on_delete=models.CASCADE)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField(null=True)
+    estimate_days = models.IntegerField(
+        help_text='Planned experiment duration(days)', default=0)
+
+    class Meta:
+        ordering = ['-pk', '-start_date', '-end_date']
+
+    def __str__(self):
+        return f'Schedule of {self.experiment}'
