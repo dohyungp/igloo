@@ -5,7 +5,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from igloo.models import Experiment, ExperimentStatus, ExperimentSchedule
 from igloo.serializers import ExperimentSerializer, ExperimentStatusSerializer, ExperimentDetailSerializer, ExperimentScheduleSerializer
-from igloo.filters import ExperimentFilter
+from igloo.filters import ExperimentFilter, ExperimentScheduleFilter
 
 
 class ExperimentList(generics.ListCreateAPIView):
@@ -39,7 +39,9 @@ class ExperimentStatusDetail(generics.RetrieveUpdateDestroyAPIView):
 class ExperimentScheduleList(generics.ListCreateAPIView):
     queryset = ExperimentSchedule.objects.all()
     serializer_class = ExperimentScheduleSerializer
-    filter_backends = [filters.OrderingFilter]
+    filter_backends = [filters.OrderingFilter, DjangoFilterBackend]
+    filterset_class = ExperimentScheduleFilter
+    filterset_fields = ['start_date', 'end_date', 'progressing']
     ordering_fields = ['start_date', 'end_date']
 
 
