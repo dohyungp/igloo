@@ -3,18 +3,18 @@ from rest_framework import serializers
 from igloo.models import Experiment, ExperimentStatus, ExperimentSchedule
 
 
-class ExperimentStatusSerializer(serializers.HyperlinkedModelSerializer):
+class ExperimentStatusSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(
-        view_name='experimentstatus-detail')
+        view_name='experimentstatus-detail', read_only=True)
 
     class Meta:
         model = ExperimentStatus
         fields = ['id', 'name', 'url']
 
 
-class ExperimentSerializer(serializers.HyperlinkedModelSerializer):
+class ExperimentSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(
-        view_name='experiment-detail')
+        view_name='experiment-detail', read_only=True)
     description = serializers.CharField(write_only=True, required=False, style={
                                         'base_template': 'textarea.html'})
 
@@ -40,17 +40,18 @@ class ExperimentDetailSerializer(serializers.ModelSerializer):
         return super().to_representation(obj)
 
 
-class ExperimentTitleSerializer(serializers.HyperlinkedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='experiment-detail')
+class ExperimentTitleSerializer(serializers.ModelSerializer):
+    url = serializers.HyperlinkedIdentityField(
+        view_name='experiment-detail', read_only=True)
 
     class Meta:
         model = Experiment
         fields = ['id', 'code', 'title', 'url']
 
 
-class ExperimentScheduleSerializer(serializers.HyperlinkedModelSerializer):
+class ExperimentScheduleSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(
-        view_name='experimentschedule-detail')
+        view_name='experimentschedule-detail', read_only=True)
 
     class Meta:
         model = ExperimentSchedule
