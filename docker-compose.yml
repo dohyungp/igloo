@@ -29,15 +29,16 @@ services:
     volumes:
       - ./server:/app/
     command: /bin/bash -c "python manage.py runserver 0.0.0.0:8000"
-  # client:
-  #   build:
-  #     context: .
-  #     dockerfile: ./docker/DockerFile.client
-  #   ports:
-  #     - 3000:3000
-  #   volumes:
-  #     - ./client:/app
-  #   command: /bin/bash -c "npm i && npm run dev"
+
+  client:
+    build:
+      context: .
+      dockerfile: ./docker/DockerFile.client
+    ports:
+      - 3000:3000
+    volumes:
+      - ./client:/app
+    command: /bin/bash -c "npm run dev"
 
 volumes:
   db:
