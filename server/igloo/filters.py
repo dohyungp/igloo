@@ -35,7 +35,7 @@ class ExperimentScheduleFilter(FilterSet):
 
     class Meta:
         model = ExperimentSchedule
-        fields = ['start_date', 'end_date', 'progressing']
+        fields = ['start_date', 'end_date', 'progressing', 'experiment']
 
     def progressing_experiment_filter(self, queryset, name, value):
         cond = Q(start_date__lte=timezone.now()) & (
