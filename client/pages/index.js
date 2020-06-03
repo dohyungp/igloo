@@ -1,50 +1,50 @@
 import Head from "next/head";
-import Router from "next/router";
-import { getExperiments } from "../api/experiment.api";
+import useRequest from "../libs/useRequest";
 import { ExperimentList } from "../components/ExperimentList";
+import { useState } from "react";
 
-const searchPageQuery = (urlString) => {
-  try {
-    const url = new URL(urlString);
-    const params = new URLSearchParams(url.search);
-    if (params.has("page")) return params.get("page");
-    else return "1";
-  } catch (e) {
-    return "1";
-  }
-};
+export default function Home() {
+  const [pageNum, setPageNum] = useState(1);
+  const [isScored, setIsScored] = useState(null);
 
-export default function Home({ data }) {
+  const { data, error } = useRequest({
+    url: "/api/experiments",
+    params: { page: pageNum, is_prioritized: isScored },
+  });
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
+        <title>IGLOO</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <main>
         <button
-          onClick={() =>
-            Router.push(`/?page=${searchPageQuery(data.previous)}`)
-          }
+          onClick={() => setPageNum(pageNum - 1)}
+          disabled={!data?.previous}
         >
-          Previous
+          이전
         </button>
-        <button
-          onClick={() => Router.push(`/?page=${searchPageQuery(data.next)}`)}
+        <button onClick={() => setPageNum(pageNum + 1)} disabled={!data?.next}>
+          다음
+        </button>
+        <select
+          name="scored"
+          onChange={(event) => {
+            setIsScored(event.target.value);
+            setPageNum(1);
+          }}
         >
-          Next
-        </button>
-        <ExperimentList experiments={data.results} />
+          <option value={null}>all</option>
+          <option value={false}>not scored</option>
+          <option value={true}>scored</option>
+        </select>
+        {error ? <div>failed to load</div> : ""}
+        {!data ? (
+          <div>loading ...</div>
+        ) : (
+          <div>{<ExperimentList experiments={data.results} />}</div>
+        )}
       </main>
     </div>
   );
 }
-
-Home.getInitialProps = async (ctx) => {
-  console.log(ctx.query);
-  let data = undefined;
-  if (ctx.req) data = await getExperiments("http://server:8000", ctx.query);
-  else data = await getExperiments("http://localhost:8000", ctx.query);
-  return { data };
-};
