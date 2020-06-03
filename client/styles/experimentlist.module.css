@@ -1,0 +1,12 @@
+.experimentwrapper {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.experimentwrapper:last-child {
+  margin-bottom: 0;
+}
+
+.centered {
+  margin: 84px auto 0;
+}
