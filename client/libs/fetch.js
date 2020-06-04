@@ -1,6 +1,6 @@
-import fetch from "isomorphic-unfetch";
+import axios from "axios";
 
-export default async function (...args) {
-  const res = await fetch(...args);
-  return res.json();
+export default async function (request) {
+  const response = await axios(request || {});
+  return response.data;
 }
