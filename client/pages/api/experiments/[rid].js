@@ -1,0 +1,14 @@
+import axios from "axios";
+
+const API_URL = "http://server:8000";
+
+export default async (req, res) => {
+  const response = await axios({
+    url: `${API_URL}/experiments/${req.query.rid}/`,
+    method: req.method,
+    params: req.query,
+    data: req.body,
+    headers: req.headers,
+  });
+  res.json(response.data);
+};
