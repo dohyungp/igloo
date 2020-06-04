@@ -4,10 +4,20 @@ import useRequest from "../../libs/useRequest";
 
 const ExperimentDetailPage = () => {
   const router = useRouter();
-  const { data, error } = useRequest(
+  const { data: experiment } = useRequest(
     router.query.id
       ? {
           url: `/api/experiments/${router.query.id}`,
+        }
+      : null
+  );
+  const { data: schedules } = useRequest(
+    router.query.id
+      ? {
+          url: `/api/schedules`,
+          params: {
+            experiment: router.query.id,
+          },
         }
       : null
   );
@@ -18,15 +28,17 @@ const ExperimentDetailPage = () => {
         <a>홈으로</a>
       </Link>
       <br />
-      {data ? (
+      {experiment ? (
         <div>
-          <h1>{data.code}</h1>
-          <h3>{data.title}</h3>
-          <p>{data.description}</p>
+          <h1>{experiment.code}</h1>
+          <h3>{experiment.title}</h3>
+          <p>{experiment.description}</p>
         </div>
       ) : (
         "loading"
       )}
+
+      {schedules ? JSON.stringify(schedules) : ""}
     </div>
   );
 };
