@@ -16,9 +16,9 @@ const ExperimentItem = ({ experiment }) => {
               <th>ease</th>
             </tr>
             <tr>
-              <td>{experiment.impact || "N/A"}</td>
-              <td>{experiment.confidence || "N/A"}</td>
-              <td>{experiment.ease || "N/A"}</td>
+              <td>{experiment.impact}</td>
+              <td>{experiment.confidence}</td>
+              <td>{experiment.ease}</td>
             </tr>
           </tbody>
         </table>
