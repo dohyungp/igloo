@@ -8,7 +8,7 @@ export const MainLayout = ({ title, children }) => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>{title}</title>
+        <title>IGLOO | {title}</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>

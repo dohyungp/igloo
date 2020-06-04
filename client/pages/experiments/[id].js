@@ -1,8 +1,16 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import useRequest from "../../libs/useRequest";
 
 const ExperimentDetailPage = () => {
   const router = useRouter();
+  const { data, error } = useRequest(
+    router.query.id
+      ? {
+          url: `/api/experiments/${router.query.id}`,
+        }
+      : null
+  );
 
   return (
     <div>
@@ -10,7 +18,15 @@ const ExperimentDetailPage = () => {
         <a>홈으로</a>
       </Link>
       <br />
-      Post ID: {router.query.id}
+      {data ? (
+        <div>
+          <h1>{data.code}</h1>
+          <h3>{data.title}</h3>
+          <p>{data.description}</p>
+        </div>
+      ) : (
+        "loading"
+      )}
     </div>
   );
 };
