@@ -8,7 +8,6 @@ export default async (req, res) => {
     method: req.method,
     params: req.query,
     data: req.body,
-    headers: req.headers,
   });
   res.json(response.data);
 };
