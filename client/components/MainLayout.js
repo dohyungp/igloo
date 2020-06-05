@@ -1,12 +1,13 @@
 import Head from "next/head";
 import React from "react";
+import { Layout } from "antd";
 import { Header } from "./Header";
 
 import styles from "../styles/mainlayout.module.css";
 
 export const MainLayout = ({ title, children }) => {
   return (
-    <div className={styles.container}>
+    <Layout>
       <Head>
         <title>IGLOO | {title}</title>
         <meta charSet="utf-8" />
@@ -16,6 +17,6 @@ export const MainLayout = ({ title, children }) => {
         <Header />
       </header>
       <main className={styles.main}>{children}</main>
-    </div>
+    </Layout>
   );
 };
