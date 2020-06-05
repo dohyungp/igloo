@@ -1,11 +1,12 @@
 .container {
   width: 100%;
-  background-color: white;
+  background-color: #f0f2f5;
 }
 
 .header {
   width: 100%;
   padding: 30px 24px;
+  background-color: white;
   border-bottom: 1px solid #eeeeee;
   margin-bottom: 12px;
 }
