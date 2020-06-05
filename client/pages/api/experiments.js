@@ -9,7 +9,6 @@ export default async (req, res) => {
     method: req.method,
     params: req.query,
     data: req.body,
-    // headers: req.headers,
   };
   const response = await axios(config);
 
