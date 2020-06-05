@@ -16,13 +16,11 @@ const ExperimentCreatePage = () => {
   });
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
     const { data } = await fetch({
       method: "POST",
       url: "/api/experiments",
       data: formData,
     });
-    console.log(data);
   };
   return (
     <div>
@@ -31,12 +29,7 @@ const ExperimentCreatePage = () => {
       </Link>
       <br />
       <div>
-        <form
-          id="experiment-create-form"
-          onSubmit={(e) => {
-            console.log(e.target.value);
-          }}
-        >
+        <form id="experiment-create-form" onSubmit={handleSubmit}>
           <div>
             <input
               type="text"
