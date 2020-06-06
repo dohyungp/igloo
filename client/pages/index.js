@@ -2,7 +2,7 @@ import { MainLayout } from "../components/MainLayout";
 import useRequest from "../libs/useRequest";
 // import { ExperimentList } from "../components/ExperimentList";
 import { useState } from "react";
-import { message, Table, Tag } from "antd";
+import { message, Table, Tag, Select, Space } from "antd";
 import Link from "next/link";
 
 const TABLE_SCHEMA = [
@@ -56,7 +56,7 @@ const TABLE_SCHEMA = [
 
 export default function Home() {
   const [pageNum, setPageNum] = useState(1);
-  const [isScored, setIsScored] = useState(null);
+  const [isScored, setIsScored] = useState(true);
 
   const { data, error } = useRequest({
     url: "/api/experiments",
@@ -67,6 +67,17 @@ export default function Home() {
     <MainLayout title="Home">
       {error ? message.error("Fetching data was failed") : ""}
       <div>
+        <Space style={{ marginBottom: 16 }}>
+          <Select
+            style={{ minWidth: 100 }}
+            defaultValue={isScored}
+            onChange={(value) => setIsScored(value)}
+          >
+            <Select.Option value={null}>All</Select.Option>
+            <Select.Option value={true}>Scored</Select.Option>
+            <Select.Option value={false}>Not scored</Select.Option>
+          </Select>
+        </Space>
         <Table
           rowKey="id"
           dataSource={data?.results}
