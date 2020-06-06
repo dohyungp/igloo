@@ -26,7 +26,7 @@ const TABLE_SCHEMA = [
     title: "Status",
     dataIndex: "status",
     key: "status",
-    render: (text, record) =>
+    render: (_, record) =>
       record?.status?.name ? (
         <Tag color={record?.status?.tag_color || "default"}>
           {record?.status?.name}
@@ -57,11 +57,31 @@ const TABLE_SCHEMA = [
 export default function Home() {
   const [pageNum, setPageNum] = useState(1);
   const [isScored, setIsScored] = useState(true);
+  const [orderIndex, setOrderIndex] = useState(null);
 
   const { data, error } = useRequest({
     url: "/api/experiments",
-    params: { page: pageNum, is_prioritized: isScored },
+    params: { page: pageNum, is_prioritized: isScored, ordering: orderIndex },
   });
+
+  const onTableChange = (pagination, filters, sorter, extra) => {
+    const symbolMap = {
+      ascend: "",
+      descend: "-",
+    };
+
+    if (Array.isArray(sorter)) {
+      const queriedIndex = sorter
+        .filter((e) => e.order === "ascend" || e.order === "descend")
+        ?.map((e) => `${symbolMap[e.order]}${e.field}`)
+        ?.join(",");
+      setOrderIndex(queriedIndex);
+    } else if (!sorter?.order && orderIndex) {
+      setOrderIndex(null);
+    } else {
+      setOrderIndex(`${symbolMap[sorter.order]}${sorter.field}`);
+    }
+  };
 
   return (
     <MainLayout title="Home">
@@ -89,6 +109,7 @@ export default function Home() {
             onChange: (page) => setPageNum(page),
             showSizeChanger: false,
           }}
+          onChange={onTableChange}
         />
       </div>
     </MainLayout>
