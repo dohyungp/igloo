@@ -9,7 +9,7 @@ class ExperimentStatusSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ExperimentStatus
-        fields = ['id', 'name', 'url']
+        fields = ['id', 'name', 'url', 'tag_color']
 
 
 class ExperimentSerializer(serializers.ModelSerializer):

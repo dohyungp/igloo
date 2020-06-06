@@ -2,7 +2,7 @@ import { MainLayout } from "../components/MainLayout";
 import useRequest from "../libs/useRequest";
 // import { ExperimentList } from "../components/ExperimentList";
 import { useState } from "react";
-import { message, Table, Tag, Select, Space } from "antd";
+import { message, Table, Tag, Select, Space, Button } from "antd";
 import Link from "next/link";
 
 const TABLE_SCHEMA = [
@@ -76,7 +76,7 @@ export default function Home() {
         ?.map((e) => `${symbolMap[e.order]}${e.field}`)
         ?.join(",");
       setOrderIndex(queriedIndex);
-    } else if (!sorter?.order && orderIndex) {
+    } else if (!sorter?.order) {
       setOrderIndex(null);
     } else {
       setOrderIndex(`${symbolMap[sorter.order]}${sorter.field}`);
@@ -97,6 +97,11 @@ export default function Home() {
             <Select.Option value={true}>Scored</Select.Option>
             <Select.Option value={false}>Not scored</Select.Option>
           </Select>
+          <Link href={`/experiments/create`}>
+            <Button style={{ float: "right" }} type="primary">
+              New idea
+            </Button>
+          </Link>
         </Space>
         <Table
           rowKey="id"
