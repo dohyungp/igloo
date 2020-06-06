@@ -7,6 +7,7 @@ class ExperimentStatus(models.Model):
     """
     name = models.CharField(max_length=15)
     description = models.TextField(max_length=250, null=True)
+    tag_color = models.CharField(max_length=35, null=True)
 
     class Meta:
         ordering = ['pk']
