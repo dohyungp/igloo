@@ -6,7 +6,9 @@ export const Header = () => {
   return (
     <div className={styles.container}>
       <Link href="/">
-        <a className={styles.logo}>igloo</a>
+        <a className={styles.logo}>
+          <img src="/igloo.svg" alt="igloo" />
+        </a>
       </Link>
     </div>
   );
