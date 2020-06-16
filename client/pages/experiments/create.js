@@ -5,7 +5,16 @@ import useRequest from "../../libs/useRequest";
 import fetch from "../../libs/fetch";
 import { MainLayout } from "../../components/MainLayout";
 
-import { Form, Input, Select, Tag, InputNumber, Button, Tooltip } from "antd";
+import {
+  Form,
+  Input,
+  Select,
+  Tag,
+  InputNumber,
+  Button,
+  Tooltip,
+  message,
+} from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 
 const layout = {
@@ -18,12 +27,19 @@ const ExperimentCreatePage = () => {
     url: "/api/status",
   });
   const onFinish = async (values) => {
-    const { data } = await fetch({
-      method: "POST",
-      url: "/api/experiments",
-      data: values,
-    });
-    Router.push("/");
+    try {
+      const { data } = await fetch({
+        method: "POST",
+        url: "/api/experiments",
+        data: values,
+      });
+      message.success(
+        "To create a new experiment was successed! It will move to the list page"
+      );
+      setTimeout(() => Router.push("/"), 1000);
+    } catch (e) {
+      message.error("Something was wrong!");
+    }
   };
 
   return (

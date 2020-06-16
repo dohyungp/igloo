@@ -10,6 +10,5 @@ export default async (req, res) => {
     data: req.body,
   };
   const response = await axios(config);
-
-  res.json(response.data);
+  res.status(response.status).json(response.data);
 };

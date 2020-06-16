@@ -2,57 +2,9 @@ import { MainLayout } from "../components/MainLayout";
 import useRequest from "../libs/useRequest";
 // import { ExperimentList } from "../components/ExperimentList";
 import { useState } from "react";
-import { message, Table, Tag, Select, Space, Button } from "antd";
+import { message, Table, Select, Space, Button } from "antd";
 import Link from "next/link";
-
-const TABLE_SCHEMA = [
-  {
-    title: "Code",
-    dataIndex: "code",
-    key: "code",
-    render: (text, record) => (
-      <Link href={`/experiments/[id]`} as={`/experiments/${record.id}`}>
-        <a>{text}</a>
-      </Link>
-    ),
-  },
-  {
-    title: "Title",
-    dataIndex: "title",
-    key: "title",
-    responsive: ["md"],
-  },
-  {
-    title: "Status",
-    dataIndex: "status",
-    key: "status",
-    render: (_, record) =>
-      record?.status?.name ? (
-        <Tag color={record?.status?.tag_color || "default"}>
-          {record?.status?.name}
-        </Tag>
-      ) : null,
-    responsive: ["md"],
-  },
-  {
-    title: "I",
-    dataIndex: "impact",
-    key: "impact",
-    sorter: { multiple: 1 },
-  },
-  {
-    title: "C",
-    dataIndex: "confidence",
-    key: "confidence",
-    sorter: { multiple: 1 },
-  },
-  {
-    title: "E",
-    dataIndex: "ease",
-    key: "ease",
-    sorter: { multiple: 1 },
-  },
-];
+import { EXPERIMENT_TABLE_SCHEMA } from "../libs/constants";
 
 export default function Home() {
   const [pageNum, setPageNum] = useState(1);
@@ -106,7 +58,7 @@ export default function Home() {
         <Table
           rowKey="id"
           dataSource={data?.results}
-          columns={TABLE_SCHEMA}
+          columns={EXPERIMENT_TABLE_SCHEMA}
           loading={data || error ? false : true}
           pagination={{
             defaultCurrent: pageNum,
