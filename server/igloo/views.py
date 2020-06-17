@@ -1,3 +1,6 @@
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
 from rest_framework import generics
 from rest_framework import filters
 
@@ -6,6 +9,15 @@ from django_filters.rest_framework import DjangoFilterBackend
 from igloo.models import Experiment, ExperimentStatus, ExperimentSchedule
 from igloo.serializers import ExperimentSerializer, ExperimentStatusSerializer, ExperimentDetailSerializer, ExperimentScheduleSerializer
 from igloo.filters import ExperimentFilter, ExperimentScheduleFilter
+
+
+@api_view(['GET'])
+def api_root(request, format=None):
+    return Response({
+        'experiments': reverse('experiment-list', request=request, format=format),
+        'experiment_statuses': reverse('experiment-statuses', request=request, format=format),
+        'experiment_schedules': reverse('experiment-schedules', request=request, format=format)
+    })
 
 
 class ExperimentList(generics.ListCreateAPIView):
